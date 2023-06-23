@@ -40,7 +40,7 @@ def generate_marketing_report():
     url = request.json['url']
 
     # Define the prompt for the marketing report
-    prompt = f"Marketing Report for {url}:\n"
+    prompt = "Detailed Marketing Report for {url}:\n"
 
     # Generate the report using the OpenAI API
     response = openai.Completion.create(
@@ -56,7 +56,32 @@ def generate_marketing_report():
     report = response.choices[0].text.strip()
 
     # Return the report as a JSON response
-    return jsonify({'report': report})
+    return jsonify({'marketing_report': report})
+
+# API endpoint for generating a SEO report
+@app.route('/generate-seo-report', methods=['POST'])
+def generate_seo_report():
+    # Get the URL from the request body
+    url = request.json['url']
+
+    # Define the prompt for the marketing report
+    prompt = "Detailed SEO Report for {url}:\n"
+
+    # Generate the report using the OpenAI API
+    response = openai.Completion.create(
+        engine='gpt-3.5-turbo-16k',  # Use the new 16k token model
+        prompt=prompt,
+        max_tokens=15999,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+
+    # Get the generated report text from the API response
+    report = response.choices[0].text.strip()
+
+    # Return the report as a JSON response
+    return jsonify({'seo_report': report})
 
 if __name__ == '__main__':
     app.run()
