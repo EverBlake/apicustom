@@ -31,7 +31,7 @@ def hello():
     return "Hello"
 
 # Set up your OpenAI API credentials
-app.config[openai.api_key] = os.getenv('OPENAI_API_KEY')
+app.config['openai.api_key'] = os.getenv('OPENAI_API_KEY')
 endpoint = "https://api.openai.com/v1/engines/davinci-codex/completions"
 
 # API endpoint for generating a marketing report
