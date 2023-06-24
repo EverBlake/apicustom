@@ -31,7 +31,7 @@ def hello():
     return "Hello"
 
 # Set up your OpenAI API credentials
-openai.api_key = process.env.OPENAI_API_KEY
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 # API endpoint for generating a marketing report
 @app.route('/generate-marketing-report', methods=['POST'])
