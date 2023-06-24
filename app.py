@@ -6,7 +6,7 @@ import requests
 from werkzeug.utils import secure_filename
 import os
 import ffmpeg
-
+import openai 
 
 def create_app():
     app = Flask(__name__, static_folder='uploads', static_url_path='/uploads')
@@ -31,7 +31,8 @@ def hello():
     return "Hello"
 
 # Set up your OpenAI API credentials
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+app.config[openai.api_key] = os.getenv('OPENAI_API_KEY')
+endpoint = "https://api.openai.com/v1/engines/davinci-codex/completions"
 
 # API endpoint for generating a marketing report
 @app.route('/generate-marketing-report', methods=['POST'])
