@@ -81,6 +81,29 @@ def generate_seo_report():
     # Get the generated report text from the API response
     report = response.choices[0].text.strip()
 
+    from moviepy.editor import VideoFileClip
+
+fapp.route('/video_length', methods=[ 'POST'])
+def video_length():
+    video_url = request .get_json()['ur1']
+    response = requests.get(video_url, stream=True)
+
+    if response.status_code != 200:
+    return jsonify({'error': 'Failed to download file'}), 400
+
+    filename = secure_filename(video_url.split('/')[-1])
+    file path = os.path.join(app.configl ['UPLOAD_FOLDER'], filename)
+
+    with open(file_path, 'wb') as f:
+        f..write(response.content)
+
+    video = VideoFileClip(file_path)
+    
+    duration = video.duration
+
+return jsonify({'video.length': duration})
+
+
     # Return the report as a JSON response
     return jsonify({'seo_report': report})
 
